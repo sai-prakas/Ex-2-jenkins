@@ -12,14 +12,14 @@ pipeline {
             steps {
                 bat '''
                     if not exist out mkdir out
-                    javac -d out src\\*.java
+                    javac -d out Calculator.java
                 '''
             }
         }
 
         stage('Run Java Program') {
             steps {
-                bat 'java -cp out Main'
+                bat 'java -cp out Calculator'
             }
         }
     }
