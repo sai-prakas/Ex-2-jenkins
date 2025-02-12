@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/sai-prakas/Java-Calculator-Build.git'
+                git branch: 'main', url: 'https://github.com/sai-prakas/Ex-2-jenkins.git'
             }
         }
 
