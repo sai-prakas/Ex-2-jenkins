@@ -10,13 +10,13 @@ pipeline {
 
         stage('Compile Java Code') {
             steps {
-                sh 'mkdir -p out && javac -d out src/*.java'
+                bat 'mkdir -p out && javac -d out src/*.java'
             }
         }
 
         stage('Run Java Program') {
             steps {
-                sh 'java -cp out Calculator < input.txt'
+                bat 'java -cp out Calculator < input.txt'
             }
         }
     }
