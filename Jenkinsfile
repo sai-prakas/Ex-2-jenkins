@@ -2,22 +2,29 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+        stage('Clone Repository') {
             steps {
-                git 'https://github.com/sai-prakas/Ex-2-jenkins.git'
+                script {
+                    checkout scmGit(branches: [[name: 'main']],
+                        userRemoteConfigs: [[url: 'https://github.com/sai-prakas/Ex-2-jenkins.git']])
+                }
             }
         }
 
         stage('Compile Java Code') {
             steps {
-                bat 'if not exist out mkdir out'
-                bat 'javac -d out src/*.java'
+                script {
+                    sh 'mkdir -p out'
+                    sh 'javac -d out src/*.java'
+                }
             }
         }
 
         stage('Run Java Program') {
             steps {
-                bat 'java -cp out Calculator'
+                script {
+                    sh 'java -cp out Calculator'
+                }
             }
         }
     }
@@ -25,6 +32,9 @@ pipeline {
     post {
         failure {
             echo "❌ Build failed!"
+        }
+        success {
+            echo "✅ Build successful!"
         }
     }
 }
