@@ -5,7 +5,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 script {
-                    checkout scmGit(branches: [[name: 'main']],
+                    checkout scmGit(branches: [[name: 'main']], 
                         userRemoteConfigs: [[url: 'https://github.com/sai-prakas/Ex-2-jenkins.git']])
                 }
             }
