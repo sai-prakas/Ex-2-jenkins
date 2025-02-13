@@ -1,33 +1,37 @@
 pipeline {
     agent any
-
+    
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/sai-prakas/Ex-2-jenkins.git'
+                git 'https://github.com/sai-prakas/Ex-2-jenkins.git'
             }
         }
-
+        
         stage('Compile Java Code') {
             steps {
-                bat '''
-                    if not exist out mkdir out
-                    dir src
-                    javac -d out src\\*.java
-                '''
+                script {
+                    def srcDir = 'src'
+                    def outDir = 'out'
+
+                    bat "if not exist ${outDir} mkdir ${outDir}"  // Ensure 'out' directory exists
+                    bat "javac -d ${outDir} ${srcDir}/*.java"  // Compile Java files
+                }
             }
         }
 
         stage('Run Java Program') {
             steps {
-                bat 'java -cp out Main'
+                script {
+                    bat "java -cp out Calculator"  // Run the Java program
+                }
             }
         }
     }
 
     post {
         success {
-            echo '✅ Build and Execution Successful!'
+            echo '🎉 Build and execution successful!'
         }
         failure {
             echo '❌ Build failed!'
