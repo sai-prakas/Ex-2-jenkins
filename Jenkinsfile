@@ -5,8 +5,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 script {
-                    checkout scmGit(branches: [[name: 'main']], 
-                        userRemoteConfigs: [[url: 'https://github.com/sai-prakas/Ex-2-jenkins.git']])
+                    checkout scm
                 }
             }
         }
@@ -15,7 +14,7 @@ pipeline {
             steps {
                 script {
                     sh 'mkdir -p out'
-                    sh 'javac -d out src/*.java'
+                    sh 'javac -d out src/*.java'  // Ensure Java files exist in src/
                 }
             }
         }
